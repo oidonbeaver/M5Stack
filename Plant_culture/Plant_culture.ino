@@ -18,8 +18,8 @@ float pressure = 0.0;
 
 //clock
 #define TFT_GREY 0x5AEB
-#define HEATER_PIN 3
-#define LIGHT_PIN 1
+#define HEATER_PIN 1
+#define LIGHT_PIN 16
 int tmp_flg =0;
 
 uint32_t targetTime = 0;                    // for next 1 second timeout
@@ -88,7 +88,7 @@ void loop() {
   }
 
 
-  if(hh>8 && hh <20){
+  if(hh>6 && hh <20){
     digitalWrite(LIGHT_PIN,HIGH);
     M5.Lcd.setTextColor(PINK, WHITE);
   }else{
@@ -112,15 +112,17 @@ void loop() {
     digitalWrite(HEATER_PIN,HIGH);
     M5.Lcd.setTextColor(RED, WHITE);
     tmp_flg=1;
-  }else if(tmp>32){
+  }else if(tmp>30){
     digitalWrite(HEATER_PIN,LOW);
     M5.Lcd.setTextColor(BLACK, WHITE);
     tmp_flg=0;
   }else{
     if(tmp_flg==1){
       M5.Lcd.setTextColor(RED, WHITE);
+      digitalWrite(HEATER_PIN,HIGH);
     }else{
       M5.Lcd.setTextColor(BLACK, WHITE);
+      digitalWrite(HEATER_PIN,LOW);
     }
   }
   M5.Lcd.printf("Temp: %2.1fC  \r\n", tmp);
