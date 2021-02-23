@@ -10,7 +10,7 @@
 #include <Adafruit_BMP280.h>
 #include "SHT3X.h"
 SHT3X sht30;
-Adafruit_BMP280 bme;
+
 
 float tmp = 0.0;
 float hum = 0.0;
