@@ -18,11 +18,12 @@ float pressure = 0.0;
 
 //clock
 #define TFT_GREY 0x5AEB
-#define HEATER_PIN 1
-#define LIGHT_PIN 16
+#define HEATER_PIN 16
+#define LIGHT_PIN 17
 int tmp_flg =0;
 
 uint32_t targetTime = 0;                    // for next 1 second timeout
+// uint32_t millis_old = 0;
 
 static uint8_t conv2d(const char* p); // Forward declaration needed for IDE 1.6.x
 
@@ -108,11 +109,11 @@ void loop() {
   M5.Lcd.setTextSize(3);
 
   
-  if(tmp<25){
+  if(tmp<27){
     digitalWrite(HEATER_PIN,HIGH);
     M5.Lcd.setTextColor(RED, WHITE);
     tmp_flg=1;
-  }else if(tmp>30){
+  }else if(tmp>32){
     digitalWrite(HEATER_PIN,LOW);
     M5.Lcd.setTextColor(BLACK, WHITE);
     tmp_flg=0;

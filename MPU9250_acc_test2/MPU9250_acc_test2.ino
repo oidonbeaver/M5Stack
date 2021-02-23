@@ -40,49 +40,16 @@ void loop()
     IMU.readAccelData(IMU.accelCount);
     IMU.ax = (float)IMU.accelCount[0] * IMU.aRes;
     IMU.ay = (float)IMU.accelCount[1] * IMU.aRes;
-    float theta = atan2(IMU.ax, -IMU.ay);
+    IMU.az=(float)IMU.accelCount[2]*IMU.aRes;
 
-    IMU.readGyroData(IMU.gyroCount);
-    IMU.gz = (float)IMU.gyroCount[2] * IMU.gRes;
 
-    int px, py;
+    M5.Lcd.setCursor(0,0);
+    M5.Lcd.print("MPU9250 acceleration");
+    M5.Lcd.setCursor(0,32);
+    M5.Lcd.printf("X: %7.2f mG\n", 1000*IMU.ax);
+    M5.Lcd.printf("Y: %7.2f mG\n", 1000*IMU.ay);
+    M5.Lcd.printf("Z: %7.2f mG\n", 1000*IMU.az);
 
-    if (fabs(hx * tan(-theta)) < hy)
-    {
-      px = hx * sgn(cos(-theta));
-      py = px * tan(-theta);
-    }
-    else
-    {
-      py = hy * sgn(sin(-theta));
-      px = py / tan(-theta);
-    }
-
-    int col1, col2;
-    if (px * qy - py * qx > 0)
-    {
-      col1 = col_bottom;
-      col2 = col_top;
-    }
-    else
-    {
-      col1 = col_top;
-      col2 = col_bottom;
-    }
-
-    triangle(0, 0, qx, qy, px, py, col1);
-    triangle(0, 0, -qx, -qy, -px, -py, col2);
-
-    if (qx != px && qy != py)
-    {
-      int cx = hx * sgn(qx);
-      int cy = hy * sgn(qy);
-
-      triangle(cx, cy, qx, qy, px, py, col1);
-      triangle(-cx, -cy, -qx, -qy, -px, -py, col2);
-    }
-
-    qx = px;
-    qy = py;
   }
+  delay(500);
 }
