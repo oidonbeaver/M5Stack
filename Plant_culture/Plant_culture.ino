@@ -10,7 +10,7 @@
 #include <Adafruit_BMP280.h>
 #include "SHT3X.h"
 SHT3X sht30;
-
+Adafruit_BMP280 bme;
 
 float tmp = 0.0;
 float hum = 0.0;
@@ -33,8 +33,10 @@ byte omm = 99, oss = 99;
 byte xcolon = 0, xsecs = 0;
 unsigned int colour = 0;
 
-uint16_t analogRead_value = 0;
-uint16_t digitalRead_value = 0;
+uint16_t analogRead_light = 0;
+uint16_t analogRead_soil = 0;
+float soil_mois=0;
+// uint16_t digitalRead_value = 0;
 
 
 void setup() {
@@ -133,10 +135,17 @@ void loop() {
   M5.Lcd.setTextColor(BLACK, WHITE);
   M5.Lcd.printf("Humi: %2.0f%%  \r\n", hum);
   M5.Lcd.printf("Pressure:%2.0fPa\r\n", pressure);
-  analogRead_value = analogRead(36);
+
+  analogRead_light = analogRead(26);
 
 
-  M5.Lcd.printf("Light: %d  \r\n", analogRead_value);
+  M5.Lcd.printf("Light: %d  \r\n", analogRead_light);
+
+  analogRead_soil = analogRead(36);
+  soil_mois=(float)(4095-analogRead_soil)/(float)analogRead_soil*100;
+  M5.Lcd.printf("Soil Mois: %3.1f  \r\n", soil_mois);
+  // M5.Lcd.printf("Soil Mois: %d  \r\n", analogRead_soil);
+
 
   delay(100);
 

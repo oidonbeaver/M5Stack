@@ -31,6 +31,7 @@ void setup()
   IMU.getAres();
   IMU.getGres();
   M5.Lcd.fillRect(0, hy, 2 * hx, 2 * hy, col_bottom);
+  dacWrite(25, 0);
 }
 
 void loop()

@@ -2,25 +2,10 @@
 #include <math.h>
 #include "utility/MPU9250.h"
 
+#define MULTISAMPLE 20
+
 MPU9250 IMU;
 
-const int col_top = TFT_RED, col_bottom = TFT_BLACK;
-
-const float hx = 160, hy = 120;
-int qx = hx, qy = 0;
-
-const float d = atan2(hy, hx);
-
-template <typename T>
-int sgn(T val)
-{
-  return (T(0) < val) - (val < T(0));
-}
-
-void triangle(int x1, int y1, int x2, int y2, int x3, int y3, int color)
-{
-  M5.Lcd.fillTriangle(hx + x1, hy + y1, hx + x2, hy + y2, hx + x3, hy + y3, color);
-}
 
 void setup()
 {
