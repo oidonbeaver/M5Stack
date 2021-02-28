@@ -1,56 +1,75 @@
-/*
-    Description: Read the analog quantity and digital quantity returned by the EARTH unit, and convert the analog quantity into 12-bit data and display it on the screen.
-*/
+//
+//    FILE: GY521_pitch_roll_yaw.ino
+//  AUTHOR: Rob Tillaart
+// VERSION: 0.1.0
+// PURPOSE: demo PRY
+//    DATE: 2020-08-06
 #include <M5Stack.h>
+#include "SD.h"
 
-void setup() {
+#include "GY521.h"
+
+GY521 sensor(0x68);
+
+uint32_t counter = 0;
+
+void setup()
+{
   M5.begin();
-  M5.Power.begin();
-  //disable the speak noise
   dacWrite(25, 0);
-
-  M5.Lcd.setTextColor(YELLOW);
-  M5.Lcd.setTextSize(2);
-  M5.Lcd.setCursor(65, 50);
-  M5.Lcd.printf("UNIT_EARTH EXAMPLE\n");
-  pinMode(26, INPUT);
-  // pinMode(2, INPUT);
-  // pinMode(5, INPUT);
-  pinMode(1, INPUT);
-  pinMode(3, INPUT);
-
-}
-
-uint16_t analogRead_value = 0;
-uint16_t a1=0,a2 = 0,a26 = 0;
-float soil_mois=0;
-void loop() {
-  // put your main code here, to run repeatedly:
-
- 
-
-  // analogRead_value = analogRead(36);
-  // // digitalRead_value = digitalRead(26);
-  // digitalRead_value = analogRead(26);
-
   
+  Serial.begin(115200);
+  Serial.println(__FILE__);
 
-
-  M5.Lcd.setTextColor(YELLOW,BLACK);
-  M5.Lcd.setCursor(0, 0);
-
-
-  
-  a1 = analogRead(35);
-
-  M5.Lcd.printf("%d\n", analogRead_value);
-  M5.Lcd.printf("a1 %d\n", a1);
-
-// analogRead_value = analogRead(5);
-// soil_mois=(4095-analogRead_value)/analogRead_value*100;
-//   M5.Lcd.printf("soil_mois %3.2f\n", soil_mois);
+  Wire.begin();
 
   delay(100);
+  while (sensor.wakeup() == false)
+  {
+    Serial.print(millis());
+    Serial.println("\tCould not connect to GY521");
+    delay(1000);
+  }
+  sensor.setAccelSensitivity(2);  // 8g
+  sensor.setGyroSensitivity(1);   // 500 degrees/s
+
+  sensor.setThrottle();
+  Serial.println("start...");
+  
+  // set callibration values from calibration sketch.
+  sensor.axe = 0;
+  sensor.aye = 0;
+  sensor.aze = 0;
+  sensor.gxe = 0;
+  sensor.gye = 0;
+  sensor.gze = 0;
 }
-// analogread OK 2,26,25,35,36
-// NG 5,1,3,23,19
+
+void loop()
+{
+  M5.Lcd.setCursor(0, 0);
+  M5.Lcd.setTextColor(BLACK, WHITE);
+  M5.Lcd.setTextSize(3);
+  sensor.read();
+  float pitch = sensor.getPitch();
+  float roll  = sensor.getRoll();
+  float yaw   = sensor.getYaw();
+
+  if (counter % 10 == 0)
+  {
+    Serial.println("\nCNT\tPITCH\tROLL\tYAW");
+  }
+
+//  M5.Lcd.printf("%d\n",counter);
+
+  M5.Lcd.printf("%2.2f\n",pitch);
+
+  M5.Lcd.printf("%2.2f\n",roll);
+
+  M5.Lcd.printf("%2.2f\n",yaw);
+
+
+  counter++;
+}
+
+// -- END OF FILE --
