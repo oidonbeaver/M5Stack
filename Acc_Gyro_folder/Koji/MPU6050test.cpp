@@ -17,11 +17,10 @@ void MPU6050sensor::read()
     ax = Wire.read() << 8;  ax |= Wire.read();
     ay = Wire.read() << 8;  ay |= Wire.read();
     az = Wire.read() << 8;  az |= Wire.read();
-
+    Temp = Wire.read() << 8;  Temp |= Wire.read();
     gx = Wire.read() << 8; gx |= Wire.read();
     gy = Wire.read() << 8; gy |= Wire.read();
     gz = Wire.read() << 8; gz |= Wire.read();
 
 
 }
-
