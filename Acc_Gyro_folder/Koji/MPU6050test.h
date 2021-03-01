@@ -15,6 +15,7 @@ class MPU6050sensor{
     public:
         MPU6050sensor(uint8_t _address=0x69);
         void read();
+        void begin();
         short int getAccelx(){ return ax; };
         short int getAccely(){ return ay; };
         short int getAccelz(){ return az; };

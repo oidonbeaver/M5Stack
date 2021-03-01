@@ -48,8 +48,11 @@ void setup() {
   //  i2c as a master
   Wire.begin();
   //  wake it up
-  sensor2.read();
-  sensor1.read();
+  sensor2.begin();
+  sensor1.begin();
+
+  Serial.begin(115200);
+  Serial.println("*** started");
   
 }
 
@@ -85,7 +88,8 @@ void loop() {
              M5.Lcd.printf("%d\r\n",sensor1.gx);
              M5.Lcd.printf("%d\r\n",sensor1.gy);
              M5.Lcd.printf("%d\r\n",sensor1.gz);
-
+              Serial.print("  "); Serial.print(sensor1.ax);
+              Serial.println("");
         // prevTime+=time_interval;
       }
     

@@ -24,3 +24,13 @@ void MPU6050sensor::read()
 
 
 }
+
+
+
+void MPU6050sensor::begin()
+{
+  Wire.beginTransmission(address);
+  Wire.write(0x6B);
+  Wire.write(0);
+  Wire.endTransmission();
+}
