@@ -11,7 +11,7 @@ unsigned long cnt=0;
 unsigned long cnt_interval=0;
 unsigned long flag=0;
 uint32_t counter = 0;
-short int time_interval = 10;
+short int time_interval = 1000;
 short int first_flag = 1;
 short int csv_num = 1;
 
@@ -133,21 +133,21 @@ void loop() {
         cnt_interval = 0;
         M5.Lcd.setCursor(0, 0,2);
         M5.Lcd.setTextColor(WHITE, BLACK);
-            //  M5.Lcd.printf("%d\r\n",sensor1.ax);
-            //  M5.Lcd.printf("%d\r\n",sensor1.ay);
-            //  M5.Lcd.printf("%d\r\n",sensor1.az);
-            //  M5.Lcd.printf("%d\r\n",sensor1.gx);
-            //  M5.Lcd.printf("%d\r\n",sensor1.gy); 
-            //  M5.Lcd.printf("%d\r\n",sensor1.gz); 
-            //  M5.Lcd.printf("%d\r\n",sensor2.ax);
-            //  M5.Lcd.printf("%d\r\n",sensor2.ay);
-            //  M5.Lcd.printf("%d\r\n",sensor2.az);
-            //  M5.Lcd.printf("%d\r\n",sensor2.gx);
-            //  M5.Lcd.printf("%d\r\n",sensor2.gy);
-            //  M5.Lcd.printf("%d\r\n",sensor2.gz);
+              M5.Lcd.printf("%d\r\n",sensor1.ax);
+              M5.Lcd.printf("%d\r\n",sensor1.ay);
+              M5.Lcd.printf("%d\r\n",sensor1.az);
+              M5.Lcd.printf("%d\r\n",sensor1.gx);
+              M5.Lcd.printf("%d\r\n",sensor1.gy); 
+              M5.Lcd.printf("%d\r\n",sensor1.gz); 
+              M5.Lcd.printf("%d\r\n",sensor2.ax);
+              M5.Lcd.printf("%d\r\n",sensor2.ay);
+              M5.Lcd.printf("%d\r\n",sensor2.az);
+              M5.Lcd.printf("%d\r\n",sensor2.gx);
+              M5.Lcd.printf("%d\r\n",sensor2.gy);
+              M5.Lcd.printf("%d\r\n",sensor2.gz);
               // Serial.print("  "); Serial.print(sensor1.ax);
               // Serial.println("");
-        // prevTime+=time_interval;
+        
               tempax1 = 0;
               tempay1 = 0;
               tempaz1 = 0;
@@ -182,6 +182,7 @@ void loop() {
       if(flag==0) {
         file.close();
         M5.Lcd.printf("STOP\r\n");
+        M5.Lcd.printf("test%d\r\n",csv_num);
         csv_num++;
         first_flag=1;
       }
