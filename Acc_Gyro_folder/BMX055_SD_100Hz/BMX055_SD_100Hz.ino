@@ -1,3 +1,4 @@
+// https://analogicintelligence.blogspot.com/2020/01/ae-bmx055.html
 #include <M5Stack.h>
 #include "SD.h"
 #include "BMX055test.h"
@@ -23,9 +24,9 @@ File file;
 
 
 
-BMX055sensor sensor1(BMX055_AC_ADDR69,BMX055_GYC_ADDR69,BMX055_MG_ADDR69
+BMX055sensor sensor1(AC_ADDRop,GY_ADDRop,MG_ADDRop);
 // BMX055sensor sensor2(0x69);
-
+BMX055sensor sensor2(AC_ADDRsh,GY_ADDRsh,MG_ADDRsh);
 
 void setup() {
   M5.begin();
@@ -74,38 +75,54 @@ void loop() {
   
       
     if(currentTime-prevTime>=time_interval) {
-        sensor1.read();
-        sensor2.read();
+        sensor1.read_acc();
+        // sensor1.read_gyro();
+        // sensor1.read_mg();
+        // sensor2.read_acc();
+        // sensor2.read_gyro();
+        // sensor2.read_mg();
         prevTime+=time_interval;
 
 
 
 
-        // file.println((String)currentTime+"," +(String)prevTime + "," + (String)tempax1 + "," + (String)tempay1 + "," + (String)tempaz1
-        // + "," + (String)tempgx1 + "," + (String)tempgy1 + "," + (String)tempgz1 + "," + (String)temptemp1
-        // + "," + (String)tempax2 + "," + (String)tempay2 + "," + (String)tempaz2
-        // + "," + (String)tempgx2 + "," + (String)tempgy2 + "," + (String)tempgz2 + "," + (String)temptemp2);
-        // // file.println((String)currentTime+"," +(String)prevTime);
-        file.println((String)currentTime+"," +(String)prevTime + "," + (String)sensor1.ax + "," + (String)sensor1.ay + "," + (String)sensor1.az
-        + "," + (String)sensor1.gx + "," + (String)sensor1.gy + "," + (String)sensor1.gz + "," + (String)sensor1.Temp
-        + "," + (String)sensor2.ax + "," + (String)sensor2.ay + "," + (String)sensor2.az
-        + "," + (String)sensor2.gx + "," + (String)sensor2.gy + "," + (String)sensor2.gz + "," + (String)sensor2.Temp);
+
+
+
+
+        // file.println((String)currentTime+"," +(String)prevTime + "," + (String)sensor1.ax + "," + (String)sensor1.ay + "," + (String)sensor1.az
+        // + "," + (String)sensor1.gx + "," + (String)sensor1.gy + "," + (String)sensor1.gz 
+        // + "," + (String)sensor1.mx + "," + (String)sensor1.my + "," + (String)sensor1.mz + "," + (String)sensor1.Temp
+        // + "," + (String)sensor2.ax + "," + (String)sensor2.ay + "," + (String)sensor2.az
+        // + "," + (String)sensor2.gx + "," + (String)sensor2.gy + "," + (String)sensor2.gz
+        // + "," + (String)sensor2.mx + "," + (String)sensor2.my + "," + (String)sensor2.mz + "," + (String)sensor2.Temp);
+
+
         cnt++;
         cnt_interval = 0;
-        M5.Lcd.setCursor(0, 0,2);
+        M5.Lcd.setCursor(0, 0,1);
         M5.Lcd.setTextColor(WHITE, BLACK);
-//         M5.Lcd.printf("acc1x: %d\r\n ",sensor1.ax);
-//         M5.Lcd.printf("acc1y: %d\r\n ",sensor1.ay);
-//         M5.Lcd.printf("acc1z: %d\r\n ",sensor1.az);
-//         M5.Lcd.printf("gyro1x %d\r\n ",sensor1.gx);
-//         M5.Lcd.printf("gyro1y: %d\r\n ",sensor1.gy); 
-//         M5.Lcd.printf("gyro1z: %d\r\n ",sensor1.gz); 
-//         M5.Lcd.printf("acc2x: %d\r\n ",sensor2.ax);
-//         M5.Lcd.printf("acc2y: %d\r\n ",sensor2.ay);
-//         M5.Lcd.printf("acc2z: %d\r\n ",sensor2.az);
-//         M5.Lcd.printf("gyro2x: %d\r\n ",sensor2.gx);
-//         M5.Lcd.printf("gyro2y: %d\r\n ",sensor2.gy);
-//         M5.Lcd.printf("gyro2z: %d\r\n ",sensor2.gz);
+        // M5.Lcd.printf("acc1x: %d\r\n ",sensor1.ax);
+        // M5.Lcd.printf("acc1y: %d\r\n ",sensor1.ay);
+        // M5.Lcd.printf("acc1z: %d\r\n ",sensor1.az);
+        // M5.Lcd.printf("gyro1x %d\r\n ",sensor1.gx);
+        // M5.Lcd.printf("gyro1y: %d\r\n ",sensor1.gy); 
+        // M5.Lcd.printf("gyro1z: %d\r\n ",sensor1.gz);
+        // M5.Lcd.printf("magnet1x %d\r\n ",sensor1.mx);
+        // M5.Lcd.printf("magnet1y: %d\r\n ",sensor1.my); 
+        // M5.Lcd.printf("magnet1z: %d\r\n ",sensor1.mz);
+
+
+
+        // M5.Lcd.printf("acc2x: %d\r\n ",sensor2.ax);
+        // M5.Lcd.printf("acc2y: %d\r\n ",sensor2.ay);
+        // M5.Lcd.printf("acc2z: %d\r\n ",sensor2.az);
+        // M5.Lcd.printf("gyro2x: %d\r\n ",sensor2.gx);
+        // M5.Lcd.printf("gyro2y: %d\r\n ",sensor2.gy);
+        // M5.Lcd.printf("gyro2z: %d\r\n ",sensor2.gz);
+        // M5.Lcd.printf("magnet2x %d\r\n ",sensor2.mx);
+        // M5.Lcd.printf("magnet2y: %d\r\n ",sensor2.my); 
+        // M5.Lcd.printf("magnet2z: %d\r\n ",sensor2.mz);
               // Serial.print("  "); Serial.print(sensor1.ax);
               // Serial.println("");
 

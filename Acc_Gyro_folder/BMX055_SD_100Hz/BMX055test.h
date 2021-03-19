@@ -1,37 +1,41 @@
 #include <Wire.h>
+#define AC_ADDRop 0x19
+#define GY_ADDRop 0x69
+#define MG_ADDRop 0x13
+#define AC_ADDRsh 0x18
+#define GY_ADDRsh 0x68
+#define MG_ADDRsh 0x10
 
-#define BMX055_AC_ADDR68 0x18
-#define BMX055_GY_ADDR68 0x68
-#define BMX055_MG_ADDR68 0x10
-#define BMX055_AC_ADDR69 0x19
-#define BMX055_GY_ADDR69 0x69
-#define BMX055_MG_ADDR69 0x13
-#define BMX055_AX  0x3B
-#define BMX055_AY  0x3D
-#define BMX055_AZ  0x3F
-#define BMX055_TP  0x41    //  data not used
-#define BMX055_GX  0x43
-#define BMX055_GY  0x45
-#define BMX055_GZ  0x47
+// #define AX  0x3B
+// #define AY  0x3D
+// #define AZ  0x3F
+// #define TP  0x41    //  data not used
+// #define GX  0x43
+// #define GY  0x45
+// #define GZ  0x47
 
 
 class BMX055sensor{
     public:
-        BMX055sensor(uint8_t _address=0x69);
-        void read();
+        BMX055sensor(uint8_t _AC_add,uint8_t _GY_add,uint8_t _MG_add );
+        // void read();
+        void read_acc();
+        void read_gyro();
+        void read_mg();
         void begin();
-        short int getAccelx(){ return ax; };
-        short int getAccely(){ return ay; };
-        short int getAccelz(){ return az; };
-        short int getGyrox(){ return gx; };
-        short int getGyroy(){ return gy; };
-        short int getGyroz(){ return gz; };
+        // short int getAccelx(){ return ax; };
+        // short int getAccely(){ return ay; };
+        // short int getAccelz(){ return az; };
+        // short int getGyrox(){ return gx; };
+        // short int getGyroy(){ return gy; };
+        // short int getGyroz(){ return gz; };
         // short int getTemp();
     // private:
-        short int ax, ay, az;
-        short int Temp;
-        short int gx, gy, gz;
-        uint8_t address;
+        int ax, ay, az;
+        int Temp;
+        int gx, gy, gz;
+        int mx, my, mz;
+        uint8_t AC_add,GY_add,MG_add;
                 
 
 
